@@ -1,0 +1,17 @@
+<div class="product-details">
+  <h1 class="text-2xl font-bold mb-4">Product Details</h1>
+
+  @if (plant()) {
+  <div>
+    <h2>{{ plant()!.name }}</h2>
+    <p class="text-green-600 font-bold mt-1">
+      ${{ plant()!.price.toFixed(2) }}
+    </p>
+    <p class="text-gray-500">{{ plant()!.description }}</p>
+  </div>
+  } @else {
+  <div class="text-red-500">
+    <p>Product not found.</p>
+  </div>
+  }
+</div>
