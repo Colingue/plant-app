@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
-import { Product } from '../../models/product.model';
+import { Plant } from '../../models/plant.model';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Router } from '@angular/router';
 
@@ -14,13 +14,13 @@ export class ProductsComponent implements OnInit {
   private productService = inject(ProductService);
   private router = inject(Router);
 
-  products: Product[] = [];
+  products: Plant[] = [];
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
+    this.products = this.productService.getPlants();
   }
 
-  goOnPlantPage(product: Product): void {
+  goOnPlantPage(product: Plant): void {
     this.router.navigate(['/plant', product.id]);
   }
 }

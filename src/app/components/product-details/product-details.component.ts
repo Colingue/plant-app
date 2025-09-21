@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from '../../models/product.model';
+import { Plant } from '../../models/plant.model';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 
@@ -12,7 +12,7 @@ import { ProductService } from '../../services/product.service';
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   plantId: number | null = null;
-  plant = signal<Product | null>(null);
+  plant = signal<Plant | null>(null);
 
   plantService = inject(ProductService);
 
@@ -24,7 +24,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.routeSubscription = this.route.paramMap.subscribe((params) => {
       this.plantId = Number(params.get('id'));
       if (this.plantId !== null) {
-        const fetchedPlant = this.plantService.getProductById(this.plantId);
+        const fetchedPlant = this.plantService.getPlantById(this.plantId);
         if (fetchedPlant) {
           this.plant.set(fetchedPlant);
         }

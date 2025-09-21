@@ -1,11 +1,11 @@
 <div class="container mx-auto p-4">
-  <h2 class="text-2xl font-bold mb-4">Products</h2>
+  <h2 class="text-2xl font-bold mb-4">Toutes les plantes 🌱</h2>
   <div
     class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4"
   >
     @for (product of products; track product.id) {
     <app-product-card
-      [product]="product"
+      [plant]="product"
       (click)="goOnPlantPage(product)"
     ></app-product-card>
     }

@@ -1,14 +1,19 @@
-<div class="text-center">
+<div
+  class="shadow-sm rounded-lg overflow-hidden hover:bg-gray-50 cursor-pointer hover:scale-102 active:scale-98 transition"
+>
   <img
-    [src]="product.imageUrl"
-    [alt]="product.name"
-    class="aspect-square object-cover rounded-full w-42 mx-auto"
+    [src]="plant.imageUrl"
+    [alt]="plant.name"
+    class="object-cover w-full mx-auto"
   />
 
   <div class="p-4">
-    <h3 class="text-lg font-semibold text-gray-800">
-      {{ product.name }}
-      <span class="text-green-700 align-middle">#{{ product.id }}</span>
-    </h3>
+    <div class="flex justify-between mb-2">
+      <h3 class="text-lg font-semibold text-gray-800">
+        {{ plant.name }}
+      </h3>
+      <p class="text-green-700 align-middle">#{{ plant.id }}</p>
+    </div>
+    <app-rarity-badge [rarity]="plant.rarity"></app-rarity-badge>
   </div>
 </div>

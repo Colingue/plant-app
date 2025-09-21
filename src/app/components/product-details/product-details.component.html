@@ -1,17 +1,64 @@
-<div class="product-details">
-  <h1 class="text-2xl font-bold mb-4">Product Details</h1>
+@if (plant(); as plant) {
+<div
+  class="product-details flex flex-col md:flex-row gap-6 p-6 bg-white shadow-md rounded-lg"
+>
+  <!-- Image Section -->
+  <div class="product-image flex-shrink-0">
+    <img
+      [src]="plant.imageUrl"
+      [alt]="plant.name"
+      class="w-full md:w-lg h-auto object-cover rounded-lg"
+    />
+  </div>
 
-  @if (plant()) {
-  <div>
-    <h2>{{ plant()!.name }}</h2>
-    <p class="text-green-600 font-bold mt-1">
-      ${{ plant()!.price.toFixed(2) }}
+  <!-- Details Section -->
+  <div class="product-info flex-1">
+    <h1 class="text-4xl font-bold mb-4">{{ plant.name }}</h1>
+    <h2 class="text-xl text-gray-600 italic mb-2">
+      {{ plant.commonName }}
+    </h2>
+    <h3 class="text-lg text-gray-500 mb-4">
+      <em>{{ plant.scientificName }}</em>
+    </h3>
+    <p class="text-green-600 text-xl font-semibold mb-4">
+      ${{ plant.price.toFixed(2) }}
     </p>
-    <p class="text-gray-500">{{ plant()!.description }}</p>
+    <p class="text-gray-700 mb-6">{{ plant.description }}</p>
+
+    <!-- Rarity -->
+    <div class="rarity mb-6">
+      <span
+        class="px-3 py-1 rounded-full text-white"
+        [className]="{
+          'bg-green-500': plant.rarity === 'Common',
+          'bg-blue-500': plant.rarity === 'Uncommon',
+          'bg-purple-500': plant.rarity === 'Rare',
+          'bg-yellow-500': plant.rarity === 'Legendary'
+        }"
+      >
+        {{ plant.rarity }}
+      </span>
+    </div>
+
+    <!-- Care Information -->
+    <div class="care-info">
+      <h2 class="text-lg font-semibold mb-4">Care Information</h2>
+      <ul class="list-disc list-inside text-gray-600">
+        <li><strong>Difficulty:</strong> {{ plant.care.difficulty }}</li>
+        <li><strong>Light:</strong> {{ plant.care.light }}</li>
+        <li>
+          <strong>Watering Frequency:</strong>
+          {{ plant.care.wateringFrequency }}
+        </li>
+        <li>
+          <strong>Temperature Range:</strong> {{ plant.care.temperatureRange }}
+        </li>
+      </ul>
+    </div>
   </div>
-  } @else {
-  <div class="text-red-500">
-    <p>Product not found.</p>
-  </div>
-  }
 </div>
+} @if (!plant()) {
+<div class="text-center text-gray-500">
+  <p>Plant not found.</p>
+</div>
+}
