@@ -3,10 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Plant } from '../../models/plant.model';
 import { Subscription } from 'rxjs';
 import { SupabaseService } from '../../services/supabase/supabase.service';
+import { RarityBadgeComponent } from '../rarity-badge/rarity-badge.component';
 
 @Component({
   selector: 'app-product-details',
-  imports: [],
+  imports: [RarityBadgeComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })
