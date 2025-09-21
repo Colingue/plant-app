@@ -1,11 +1,11 @@
 <span
-  class="px-3 py-1 rounded-full text-white text-sm font-medium"
-  [class]="{
-    'bg-green-500': rarity === 'Common',
-    'bg-blue-500': rarity === 'Uncommon',
-    'bg-purple-500': rarity === 'Rare',
-    'bg-yellow-500': rarity === 'Legendary'
+  class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium inset-ring"
+  [ngClass]="{
+    'bg-green-50 text-green-700 inset-ring-green-700/10': rarity === 'common',
+    'bg-blue-50 text-blue-700 inset-ring-blue-700/10': rarity === 'uncommon',
+    'bg-purple-50 text-purple-700 inset-ring-purple-700/10': rarity === 'rare',
+    'bg-yellow-50 text-yellow-700 inset-ring-yellow-700/10':
+      rarity === 'legendary'
   }"
+  >{{ rarity }}</span
 >
-  {{ rarity }}
-</span>

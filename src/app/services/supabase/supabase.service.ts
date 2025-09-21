@@ -75,4 +75,45 @@ export class SupabaseService {
   uploadAvatar(filePath: string, file: File) {
     return this.supabase.storage.from('avatars').upload(filePath, file);
   }
+
+  /**
+   * Récupère la liste des plantes depuis Supabase
+   * @param filters Objet contenant les filtres
+   *  - rarity: 'common' | 'rare' | 'legendary' | 'all'
+   *  - search: texte pour la recherche
+   */
+  async getPlants(filters?: { rarity?: string; search?: string }) {
+    let query = this.supabase.from('plants').select('*');
+
+    // Filtre par rareté
+    if (filters?.rarity && filters.rarity !== 'all') {
+      query = query.eq('rarity', filters.rarity);
+    }
+
+    // Recherche texte dans name et scientificName
+    if (filters?.search && filters.search.trim() !== '') {
+      query = query.or(
+        `name.ilike.%${filters.search}%,scientificName.ilike.%${filters.search}%`
+      );
+    }
+
+    // Tri alphabétique
+    query = query.order('name', { ascending: true });
+
+    const { data, error } = await query;
+    if (error) throw error;
+    return data;
+  }
+
+  // Exemple : récupération d'une plante par ID
+  async getPlantById(id: number) {
+    const { data, error } = await this.supabase
+      .from('plants')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
 }

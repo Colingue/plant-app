@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Plant } from '../../models/plant.model';
 import { Subscription } from 'rxjs';
-import { ProductService } from '../../services/product.service';
+import { SupabaseService } from '../../services/supabase/supabase.service';
 
 @Component({
   selector: 'app-product-details',
@@ -14,17 +14,19 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   plantId: number | null = null;
   plant = signal<Plant | null>(null);
 
-  plantService = inject(ProductService);
+  private supabaseService = inject(SupabaseService);
 
   private route = inject(ActivatedRoute);
 
   routeSubscription: Subscription | null = null;
 
   ngOnInit() {
-    this.routeSubscription = this.route.paramMap.subscribe((params) => {
+    this.routeSubscription = this.route.paramMap.subscribe(async (params) => {
       this.plantId = Number(params.get('id'));
       if (this.plantId !== null) {
-        const fetchedPlant = this.plantService.getPlantById(this.plantId);
+        const fetchedPlant = await this.supabaseService.getPlantById(
+          this.plantId
+        );
         if (fetchedPlant) {
           this.plant.set(fetchedPlant);
         }

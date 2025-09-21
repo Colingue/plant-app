@@ -6,7 +6,7 @@ export interface Plant {
   price: number;
   imageUrl: string;
   description?: string;
-  rarity: 'Common' | 'Uncommon' | 'Rare' | 'Legendary';
+  rarity: 'common' | 'uncommon' | 'rare' | 'legendary';
 
   care: {
     difficulty: 'Easy' | 'Medium' | 'Hard';
