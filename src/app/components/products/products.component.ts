@@ -4,10 +4,11 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 import { Router } from '@angular/router';
 import { SupabaseService } from '../../services/supabase/supabase.service';
 import { FormsModule } from '@angular/forms';
+import { FilterBarComponent } from '../filter-bar/filter-bar.component';
 
 @Component({
   selector: 'app-products',
-  imports: [ProductCardComponent, FormsModule],
+  imports: [ProductCardComponent, FormsModule, FilterBarComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
@@ -35,8 +36,11 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  async onFilterChange(): Promise<void> {
-    await this.loadProducts();
+  onFilterChange(filters: { rarity: string; search: string }): void {
+    console.log('Filters changed:', filters);
+    this.rarityFilter.set(filters.rarity);
+    this.searchQuery.set(filters.search);
+    this.loadProducts();
   }
 
   goOnPlantPage(product: Plant): void {
